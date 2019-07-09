@@ -1,3 +1,12 @@
+## The Project ProfConn Contain the intigration of following technology and services
+* React JS 
+* AWS DynamoDB
+* AWS Lambda
+* AWS API Gateway
+* AWS Cognito
+* AWS S3
+* AWS IAM
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
