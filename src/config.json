@@ -1,5 +1,10 @@
 {
     "api": { 
       "invokeUrl": "https://pdb530uro3.execute-api.us-east-1.amazonaws.com/prod"
-    } 
+    },
+    "cognito": {
+      "REGION": "us-east-1",
+      "USER_POOL_ID": "us-east-1_261jAYW4k",
+      "APP_CLIENT_ID": "1361phqgidfij7u37gcc0qskbr"
+    }
   }
