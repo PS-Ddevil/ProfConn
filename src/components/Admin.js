@@ -12,7 +12,10 @@ export default class Home extends Component {
         newprof: { 
           "name": "", 
           "id": "",
-          "school": "",
+          "email": "",
+          "residence": "",
+          "office": "",
+          "designation": ""
         },
         profs: []
     }
@@ -25,29 +28,38 @@ export default class Home extends Component {
             const params = {
                 "id": id,
                 "name": this.state.newprof.name,
-                "school": this.state.newprof.school
+                "email": this.state.newprof.email,
+                "designation": this.state.newprof.designation,
+                "office": this.state.newprof.office,
+                "residence": this.state.newprof.residence
             };
             await axios.post(`${config.api.invokeUrl}/prof/${id}`, params);
             this.setState({ profs: [...this.state.profs, this.state.newprof] });
-            this.setState({ newprof: { "name": "", "id": "", "school": "" }});
+            this.setState({ newprof: { "name": "", "id": "", "email": "", "residence": "", "office": "", "designation": "" }});
         }catch (err) {
             console.log(`An error has occurred: ${err}`);
         }
     }
 
-    handleUpdateProf = async (id, name, school) => {
+    handleUpdateProf = async (id, name, email, residence, office, designation) => {
         // add call to AWS API Gateway update product endpoint here
         try {
           const params = {
             "id": id,
             "name": name,
-            "school": school
+            "email": email,
+            "residence": residence,
+            "office": office,
+            "designation": designation
           };
           await axios.patch(`${config.api.invokeUrl}/prof/${id}`, params);
           const profToUpdate = [...this.state.profs].find(prof => prof.id === id);
           const updatedProfs = [...this.state.profs].filter(prof => prof.id !== id);
           profToUpdate.name = name;
-          profToUpdate.school = school;
+          profToUpdate.email = email;
+          profToUpdate.office = office;
+          profToUpdate.designation = designation;
+          profToUpdate.residence = residence;
           updatedProfs.push(profToUpdate);
           this.setState({profs: updatedProfs});
         }catch (err) {
@@ -80,7 +92,10 @@ export default class Home extends Component {
     }
     
     onAddProfNameChange = event => this.setState({ newprof: { ...this.state.newprof, "name": event.target.value } });
-    onAddProfSchoolChange = event => this.setState({ newprof: { ...this.state.newprof, "school": event.target.value } });
+    onAddProfEmailChange = event => this.setState({ newprof: { ...this.state.newprof, "email": event.target.value } });
+    onAddProfDesignationChange = event => this.setState({ newprof: { ...this.state.newprof, "designation": event.target.value } });
+    onAddProfOfficeChange = event => this.setState({ newprof: { ...this.state.newprof, "office": event.target.value } });
+    onAddProfResidenceChange = event => this.setState({ newprof: { ...this.state.newprof, "residence": event.target.value } });
     
     componentDidMount = () => {
         this.fetchProfs();
@@ -121,18 +136,52 @@ export default class Home extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                    <label htmlFor="school">School</label>
+                                    <label htmlFor="name">Designation</label>
                                         <input 
                                         className="form-control" 
                                         type="text"
-                                        id="school"
-                                        placeholder="School"
-                                        value={this.state.newprof.school}
-                                        onChange={this.onAddProfSchoolChange}
+                                        id="designation"
+                                        aria-describedby="nameHelp"
+                                        placeholder="Enter Designation"
+                                        value={this.state.newprof.designation}
+                                        onChange={this.onAddProfDesignationChange}
                                         />
-                                        <span className="icon is-small is-left">
-                                        <i className="fas fa-lock"></i>
-                                        </span>
+                                    </div>
+                                    <div className="form-group">
+                                    <label htmlFor="name">Residence</label>
+                                        <input 
+                                        className="form-control" 
+                                        type="text"
+                                        id="address"
+                                        aria-describedby="nameHelp"
+                                        placeholder="Enter Residence"
+                                        value={this.state.newprof.residence}
+                                        onChange={this.onAddProfResidenceChange}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                    <label htmlFor="name">Office</label>
+                                        <input 
+                                        className="form-control" 
+                                        type="text"
+                                        id="office"
+                                        aria-describedby="nameHelp"
+                                        placeholder="Enter Office"
+                                        value={this.state.newprof.office}
+                                        onChange={this.onAddProfOfficeChange}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                    <label htmlFor="name">Email</label>
+                                        <input 
+                                        className="form-control" 
+                                        type="text"
+                                        id="email"
+                                        aria-describedby="nameHelp"
+                                        placeholder="Enter Email"
+                                        value={this.state.newprof.email}
+                                        onChange={this.onAddProfEmailChange}
+                                        />
                                     </div>
                                     <div className="field">
                                     <p className="control">
@@ -153,7 +202,10 @@ export default class Home extends Component {
                                         handleUpdateProf={this.handleUpdateProf}
                                         handleDeleteProf={this.handleDeleteProf} 
                                         name={prof.name} 
-                                        school={prof.school}
+                                        office={prof.office} 
+                                        residence={prof.residence}
+                                        email={prof.email} 
+                                        designation={prof.designation}
                                         id={prof.id}
                                         key={prof.id}
                                         />)

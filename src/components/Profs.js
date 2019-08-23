@@ -39,7 +39,7 @@ export default class Products extends Component {
             <div className="row">
                 { 
                     this.state.profs && this.state.profs.length > 0
-                    ? this.state.profs.map(prof => <Prof name={prof.name} id={prof.id} key={prof.id} school={prof.school} />)
+                    ? this.state.profs.map(prof => <Prof name={prof.name} id={prof.id} key={prof.id} designation={prof.designation} office={prof.office} residence={prof.residence} email={prof.email}/>)
                     : <div className="tile notification is-warning">No Data available</div>
                 }
             </div>
